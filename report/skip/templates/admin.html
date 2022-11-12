@@ -1,0 +1,188 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load templatetag %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+{% endblock %} 
+
+
+{% block content %}
+{% if user.is_staff %}
+<body>
+    <div class="contrainer">
+        <nav class="nav">
+            <input class="nav__check" type="checkbox" id="showmenu" />
+            <label class="nav__showmenu" for="showmenu">&#9776;</label>
+            <label class="nav__back" for="showmenu"></label>
+            <ul class="menu">
+                <img src="{% static 'image/Vector1.svg' %}" alt="" class="vector_top">
+                <img src="{% static 'image/user.svg' %}" class="user">
+                <li><a class="menu__item" href="{% url 'admin' group=1 %}">{{ request.user }}</a></li>
+                <img src="{% static 'image/Vector.svg' %}">
+                <img src="{% static 'image/useredit.svg' %}" class="user_edit">
+                <li><a class="menu__item" href="{% url 'admin_registration' %}">Регистрация</a></li>
+                <img src="{% static 'image/Vector.svg' %}">
+                <img src="{% static 'image/download.svg' %}" class="download_file">
+                <li><a class="menu__item" href="{% url 'export_excel' %}">Скачать файл .xls</a></li>
+                <img src="{% static 'image/Vector.svg' %}">
+                <li>
+                    <a class="menu__item" href="#" id="one"></a>
+                </li>
+                <li>
+                    <a class="menu__item" href="#" id="two"></a>
+                </li>
+                <img src="{% static 'image/VectorExit.svg' %}" class="Vectorexit">
+                <img src="{% static 'image/exit.svg' %}" class="exit">
+                <li>
+                    <a class="menu__item" id="exit" href="{% url 'logout' %}">Выход</a>
+                </li>
+
+            </ul>
+        </nav>
+        <h1 class="collage">
+            Электронный колледж
+        </h1>
+        <!-- */Приветствие/* -->
+        <h1 class="welcome_admin">
+            Страница Администрации
+        </h1>
+        <!-- */Регистрация/* -->
+        <a class="reg" href="{% url 'admin_registration' %}">Регистрация</a>
+        <!-- */Номер корпуса и выход из аккаунта/* -->
+        <div class="navigation">
+            <a href="{% url 'admin' group=1 %}" class="number_korpus">{{ request.user }}</a>
+            <h1 class="separation">|</h1>
+            <a href="{% url 'logout' %}" class="logout">Выход</a>
+        </div>
+        <!-- */Начало date и Конец date/* -->
+        <div class="in-out">
+            <h1 class="select-avg">
+                Фильтр для среднего
+            </h1>
+            <!-- */Сегодняшняя date/* -->
+            <div class="in-date">
+                <h3 class="date">Дата</h3><input type="date" name="date" class="date" id="style_input" value="{{ current_date }}" readonly>
+            </div>
+            <form method="GET">
+                <div class="in">
+                    <h3 class="date">Начало</h3>{{ form.start }}
+                </div>
+                <div class="out">
+                    <h3 class="date">Конец</h3>{{ form.end }}
+                </div>
+                <button type="submit" class="btn-primary">Выбрать</button>
+            </form>
+        </div>
+        <!-- */Таблица отсутствующих/* -->
+
+        <div class="missing-people">
+            <h1 class="header">Отсутствующие</h1>
+            <h1 class="avg">Среднее</h1>
+            <h1 class="today">Сегодня</h1>
+
+            <!-- */Данные таблицы отсутствующих/* -->
+            {% if status_report %}
+            {% if request.resolver_match.kwargs.group == 1 %}
+            <div class="stats1">
+                <p class="stats1">В процентах: {{ avg_percent }} % <br>Людей: {{ avg_absenteeism|floatformat:2 }} <br>Часы: {{ all_num_hours|floatformat:0 }}</p>
+            </div>
+    
+            <div class="stats2">
+                {% for z in today %}
+                <p class="stats2">В процентах: {{ z.percent|floatformat:2 }} % <br>Людей: {{ z.absenteeism }} <br>Часы: {{ z.num_hours|floatformat:0 }}</p>
+                {% endfor %}
+                
+            </div>
+            {% else %}
+            <div class="stats1">
+                <p class="stats1">В процентах: {{ avg_percent }} % <br>Людей: {{ avg_absenteeism|floatformat:2 }} <br>Часы: {{ all_num_hours|floatformat:0 }}</p>
+            </div>
+    
+            <div class="stats2">
+                {% for i in group_today %}
+                <p class="stats2">В процентах: {{ i.percent|floatformat:2 }} % <br>Людей: {{ i.absenteeism }} <br>Часы: {{ i.num_hours|floatformat:0 }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="stats1">
+                <p class="stats1">В процентах: {{ avg_percent }} <br>Людей: {{ avg_absenteeism|floatformat:2 }} <br>Часы: {{ all_num_hours|floatformat:0 }}</p>
+            </div>
+    
+            <div class="stats2">
+                <p class="stats2">В процентах: 0 <br>Людей: 0 <br>Часы: 0</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- */Таблица списка групп/* -->
+        <div class="group-list">
+            <h1 class="group-header">Список групп</h1>
+
+            <!-- */Сам список групп/* -->
+            <div class="group_section">
+                <a class="group-list" href="/admin_panel/group/1">Все</a>
+                {% for j in groups %}
+                <a class="group-list" href="/admin_panel/group/{{ j.group.pk }}">
+                    {{ j.group }}
+                </a>
+                {% endfor %} 
+            </div>
+
+            <!-- */Таблица не сдавших групп/* -->
+            <div class="group_list_not_turned">
+                <h1 class="group_header_not_turned">Не сдали</h1>
+
+                <!-- */Сам список не сдавших групп/* -->
+                <div class="group_section_not_turned">
+                    {% if status_report %}
+                    {% if error %}
+                    {% for x in error %}
+                    <a class="group-list" href="/admin_panel/group/{{ x.pk }}">
+                        {{ x }}
+                    </a>
+                    {% endfor %}
+                    {% else %}
+                    <a class="group-list" href="">
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <a class="group-list" href="">
+                        Никто не сдал отчет
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- */График/* -->
+        
+        <div class="Graph">
+            {{ chart|safe }}
+        </div>
+
+        <div class="clear">
+            -
+        </div>
+
+        <!-- */Скачать данные/* -->
+        <div class="download">
+            <img class="download_IMAGE" src="{% static '/image/download.svg' %}">
+            <a class="download" href="{% url 'export_excel' %}">Cкачать</a>
+        </div>
+    </div>
+</body>
+{% else %}
+<h1>Вы не можете просматривать эту страницу</h1>
+{% endif %}
+{% endblock %}
+
+
+
+
+

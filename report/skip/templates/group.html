@@ -1,0 +1,101 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/group.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if not user.is_staff %}
+<body>
+    <div class="container">
+        <h1 class="collage">
+            Электронный колледж
+        </h1>
+        <h1 class="welcome_people" id="welcome_people">Здравствуй, староста группы: {{ user }}</h1>
+        <div class="dropdown">
+            <button onclick="stFunction()" class="hint" id="hint"></button>
+            <div id="myDropdown" class="dropdown-content" id="dropdown-content">
+                <p><span>Дата:</span> Заполняете сегодняшний день
+                    <br><span>Всего людей:</span> Пишите общее количество людей в группе
+                    <br><span>Отсутствующие:</span> Сколько людей отсутствуют сегодня
+                    <br><span>Всего пар:</span> Общее количество пар</p>
+            </div>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.date }}
+            
+            {{ form.all_people }}
+            <img class="all_people_IMAGE" src="{% static '/image/all_people.svg' %}">
+
+            {{ form.absenteeism }}
+            <img class="truancy_IMAGE" src="{% static '/image/truancy.svg' %}">
+
+            {{ form.num_pairs}}
+            <img class="total_lesson_IMAGE" src="{% static '/image/total_lesson.svg' %}">
+            
+            <div class="checkbox_admin">
+                <input type="checkbox" class="admin_check" required>
+                <input type="button" class="admin" id="exampleInputCheckBoxAdmin" value="Я подтверждаю" >
+            </div>
+            
+            <img class="submit_IMAGE" src="{% static '/image/Submit.svg' %}">
+            <!-- <input type="checkbox" required> -->
+            
+            <button type="submit" action="{% url 'group' %}" class="btn-primary">Отправить</button>
+        </form>
+        
+        <div class="Graph">
+            {{ chart|safe }}
+        </div>
+        <div class="quit">
+            <img class="quit_IMAGE" src="{% static '/image/quit.svg' %}">
+            <a href="{% url 'logout' %}" class="quit">Выход</a>
+        </div>
+    </div>
+</body>
+
+<script>
+    function stFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.hint')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+<script>
+    document.getElementById('exampleInputCheckBoxAdmin').readOnly = true, disabled = true;
+</script>
+<!-- <h1></h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.date }}
+    {{ form.all_people }}
+    {{ form.absenteeism }}
+    {{ form.num_pairs}}
+
+    {{ error }}
+
+    <button type="submit" action="{% url 'group' %}">Отправить отчёт</button>
+</form>
+
+<a href="{% url 'logout' %}">Выйти</a> -->
+
+{% else %}
+<h1>Вы не можете просматривать эту страницу</h1>
+{% endif %}
+{% endblock %}
