@@ -89,8 +89,6 @@ class Admin(LoginRequiredMixin, TemplateView):
                                       autosize=True,
                                       height=430,                                      
                                     #   width=1000,
-                                    
-                                      
                                     )
                     else:
                         fig.update_layout(yaxis_range=[0, 100],
@@ -100,8 +98,6 @@ class Admin(LoginRequiredMixin, TemplateView):
                                         xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])],
                                         
                                         #   width=1000,
-                                        
-                                        
                                         )
                          #xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])]
                     
