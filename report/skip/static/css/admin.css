@@ -934,6 +934,7 @@ nav {
 
 @media screen and (max-width: 375px) {
     body {
+        height: 648px;
         width: 330px;
         margin-left: 21px;
     }
