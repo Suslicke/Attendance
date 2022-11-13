@@ -345,7 +345,27 @@ class AdminRegistration(LoginRequiredMixin, TemplateView):
                 return redirect('/')
             
             else:
-                messages.error(request, form.errors)
+                try:
+                    username = form.errors['username']
+                except KeyError:
+                    username = None
+                try:
+                    password2 = form.errors['password2']
+                except KeyError:
+                    password2 = None
+                
+                if username != None:
+                    if password2 != None:
+                        message = username + password2
+                    else:    
+                        message = username
+                if password2 != None:
+                    if username != None:
+                        message = username + password2
+                    else:
+                        message = password2
+                        
+                messages.error(request, message)
 
         else:
             form = self.form_registration()

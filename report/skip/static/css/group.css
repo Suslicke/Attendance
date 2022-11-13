@@ -142,7 +142,7 @@ input[type='number'] {
     height: 40px;
     left: 30px;
     top: -150px;
-    background: url("static/image/hint.svg");
+    background: url("../image/hint.svg");
     border: none;
     transition: all 300ms 0.2s ease-in, all 300ms ease-out;
 }
@@ -279,7 +279,7 @@ input#style_input.date {
     width: 29px;
     height: 29px;
     margin-top: 55px;
-    margin-left: 630px;
+    margin-left: 618px;
 }
 
 .total_lesson_IMAGE {
@@ -403,7 +403,7 @@ input[type="checkbox"] {
     }
     .truancy_IMAGE {
         margin-top: 9px;
-        margin-left: 615px;
+        margin-left: 601px;
     }
     .total_lesson_IMAGE {
         margin-top: 9px;
@@ -580,7 +580,7 @@ input[type="checkbox"] {
     }
     img.truancy_IMAGE {
         margin-top: 57px;
-        margin-left: 555px;
+        margin-left: 549px;
     }
     img.total_lesson_IMAGE {
         margin-top: 57px;

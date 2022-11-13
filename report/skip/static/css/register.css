@@ -165,6 +165,16 @@ h1.incorrectsa {
     text-align: center;
     color: #BF2525;
 }
+h1.incorrectsaMob {
+    display: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #BF2525;
+}
 
 form {
     display: flex;
@@ -221,9 +231,6 @@ input[type="checkbox"] {
     margin-top: 230px;
     width: 264px;
     height: 66px;
-    background: rgba(255, 123, 123, 0.21);
-    border: 1px solid rgba(190, 79, 79, 0.53);
-    border-radius: 10px;
 }
 
 .incorrectsa {
@@ -536,6 +543,7 @@ button:hover {
         border-radius: 10px;
     }
     h1.incorrectsa {
+        display: none;
         width: 145px;
         height: 16px;
         font-family: 'Inter';
@@ -546,6 +554,19 @@ button:hover {
         text-align: center;
         top: 0px;
         margin-left: -20px;
+    }
+    h1.incorrectsaMob {
+        display: block;
+        width: 245px;
+        height: 16px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 200;
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+        top: 0px;
+        margin-left: -47px;
     }
     h1.collage {
         font-family: 'Inter';
@@ -705,6 +726,7 @@ button:hover {
         border-radius: 10px;
     }
     h1.incorrectsa {
+        display: none;
         width: 145px;
         height: 16px;
         font-family: 'Inter';
@@ -715,6 +737,19 @@ button:hover {
         text-align: center;
         top: 0px;
         margin-left: -22px;
+    }
+    h1.incorrectsaMob {
+        display: block;
+        width: 245px;
+        height: 16px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 200;
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+        top: 0px;
+        margin-left: -47px;
     }
     h1.collage {
         font-family: 'Inter';

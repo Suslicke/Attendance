@@ -66,6 +66,17 @@ h1.welcome {
     margin-top: 116px;
 }
 
+h1.password-or-login {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #BF2525;
+    margin-top: 21px;
+}
+
 h2 {
     margin-top: 50px;
     font-family: 'Inter';
@@ -234,6 +245,9 @@ button {
     }
     h2 {
         font-size: 20px;
+    }
+    h1.password-or-login {
+        margin-top: 15px;
     }
 }
 

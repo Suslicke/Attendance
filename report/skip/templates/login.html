@@ -21,11 +21,6 @@
         </h1>
         <h1 class="welcome">Добро пожаловать!</h1>
         <h2 class="input_data">Введите логин и пароль </h2>
-        {% if messages %}
-          {% for message in messages %}    
-            <h3>{{ message }}</h3>
-          {% endfor %}
-        {% endif %}
         <form method="POST"> 
           {% csrf_token %} 
           <div class="input_login">
@@ -37,6 +32,9 @@
             <img src="{% static 'image/Password.png' %}" class="password_IMAGE">
             {{ form.password }}
           </div>
+          {% for message in messages %}
+            <h1 class="password-or-login">{{ message }}</h1>
+          {% endfor %}
           <button type="submit" class="btn btn-primary">Войти</button>
         </form>
       </div>
