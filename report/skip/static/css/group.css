@@ -527,7 +527,7 @@ input[type="checkbox"] {
     div.Graph {
         width: 973px;
         height: 318px;
-        margin-top: 65px;
+        margin-top: 40px;
         margin-left: 100px;
     }
     form {
@@ -541,6 +541,7 @@ input[type="checkbox"] {
     #style_input {
         width: 227px;
         height: 58px;
+        margin-top: 25px;
     }
     .hint {
         margin-left: 10px;
@@ -551,12 +552,12 @@ input[type="checkbox"] {
     button.btn-primary {
         width: 210px;
         height: 40px;
-        margin: 0px;
+        margin: 28px;
         margin-left: 80%;
-        top: 150px;
+        top: 94px;
     }
     img.submit_IMAGE {
-        margin-top: 110px;
+        margin-top: 54px;
         margin-left: 81%;
     }
     input[type="button"] {
@@ -574,22 +575,22 @@ input[type="checkbox"] {
         margin-top: 17px;
     }
     img.all_people_IMAGE {
-        margin-top: 115px;
+        margin-top: 57px;
         margin-left: 285px;
     }
     img.truancy_IMAGE {
-        margin-top: 115px;
+        margin-top: 57px;
         margin-left: 555px;
     }
     img.total_lesson_IMAGE {
-        margin-top: 115px;
+        margin-top: 57px;
         margin-left: 820px;
     }
     a.quit {
         position: absolute;
         width: 180px;
         height: 30px;
-        margin-top: -70px;
+        margin-top: 6px;
         margin-left: 0px;
         right: 37px;
         background: #F7F7F7;
@@ -600,7 +601,7 @@ input[type="checkbox"] {
     }
     img.quit_IMAGE {
         right: 180px;
-        margin-top: -60px;
+        margin-top: 16px;
     }
     .collage {
         left: 33%;
@@ -770,28 +771,29 @@ input[type="checkbox"] {
         width: 373px;
         height: 167px;
         margin: 0px;
-        margin-top: 180px;
+        margin-top: 86px;
     }
     a.quit {
         width: 193px;
         height: 27px;
         margin: 0px;
         padding: 5px;
-        margin-top: 30px;
+        margin-top: 271px;
         right: 85px;
         font-size: 16px;
     }
     img.quit_IMAGE {
         margin: 0px;
-        margin-top: 37px;
+        margin-top: 280px;
         right: 250px;
     }
 }
 
 @media screen and (max-width: 375px) {
     body {
-        width: 350px;
+        width: 375px;
         margin-left: 13px;
+        height: 650px;
     }
     .container {
         width: 350px;
@@ -814,19 +816,20 @@ input[type="checkbox"] {
     }
     div.Graph {
         width: 342px;
+        margin-top: 81px;
     }
     a.quit {
         width: 193px;
         height: 27px;
         margin: 0px;
         padding: 5px;
-        margin-top: 95px;
+        margin-top: 281px;
         right: 70px;
         font-size: 16px;
     }
     img.quit_IMAGE {
         margin: 0px;
-        margin-top: 103px;
+        margin-top: 289px;
         right: 240px;
     }
 }

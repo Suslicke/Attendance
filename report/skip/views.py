@@ -73,33 +73,45 @@ class Admin(LoginRequiredMixin, TemplateView):
     def get(self, request, group):
 
         class GeneratePage():
-            def graph(self, request, graph_data):
-                
+            def graph(self, request, graph_data, start):
                 if graph_data:
-                    fig = px.line(
+                    fig = px.bar(
                         x=[c['date'] for c in graph_data],
                         y=[c['percent'] for c in graph_data],
                         labels={'x': 'Дата', 'y':'Общий процент'},
                         )
                     
-
-                    fig.update_layout(yaxis_range=[0, 100],
+                    
+                    
+                    if start:
+                        fig.update_layout(yaxis_range=[0, 100],
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       autosize=True,
+                                      height=430,                                      
                                     #   width=1000,
                                     
                                       
-                                    ) #xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])]
+                                    )
+                    else:
+                        fig.update_layout(yaxis_range=[0, 100],
+                                        paper_bgcolor='rgba(0,0,0,0)',
+                                        autosize=True,
+                                        height=430,
+                                        xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])],
+                                        
+                                        #   width=1000,
+                                        
+                                        
+                                        )
+                         #xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])]
                     
-                    fig.update_yaxes(
-                        automargin=True
-                    )
+
                     chart = fig.to_html(full_html=False)
 
                 
                     # date_form = self.form_date(initial=self.initial)
                     
-                    return "<div class='Graphical'>" + chart + "</div>"
+                    return chart
                 
             def today_data(self, request, today_info, group, start, end):
                 if group != 1:
@@ -208,7 +220,7 @@ class Admin(LoginRequiredMixin, TemplateView):
                     if start and end:
                         graph_data = Truancy.objects.values('date').annotate(absenteeism=Sum('absenteeism'), percent=Avg('percent'), num_hours=Sum('num_hours')).order_by('date').filter(date__gte=start).filter(date__lte=end)
                     
-                    chart = GeneratePage.graph(self, request, graph_data)
+                    chart = GeneratePage.graph(self, request, graph_data, start)
                     
                     get_today = datetime.date.today()
                     today_info = Truancy.objects.values('date').annotate(absenteeism=Sum('absenteeism'), percent=Avg('percent'), num_hours=Sum('num_hours')).order_by('date').filter(date=get_today)
@@ -229,7 +241,7 @@ class Admin(LoginRequiredMixin, TemplateView):
                     if end:
                         graph_data = Truancy.objects.filter(group=group).values().filter(date__lte=end)
                     
-                    chart = GeneratePage.graph(self, request, graph_data)
+                    chart = GeneratePage.graph(self, request, graph_data, start)
                     
                     get_today = datetime.date.today()
                     today_info = Truancy.objects.filter(date=get_today, group=group)
@@ -338,7 +350,7 @@ class Group(LoginRequiredMixin, TemplateView):
         get_all_skip = Truancy.objects.filter(group=request.user)
         
         if get_all_skip:
-            fig = px.line(
+            fig = px.bar(
                 x=[c.date for c in get_all_skip],
                 y=[c.absenteeism for c in get_all_skip],
                 labels={'x': 'Дата', 'y':'Колличество отсутствующих'},
@@ -349,6 +361,7 @@ class Group(LoginRequiredMixin, TemplateView):
             fig.update_layout(yaxis_range=[0, min(sorted(last_range))],
                             xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])],
                             paper_bgcolor='rgba(0,0,0,0)',
+                            height=430,
                             )
             chart_skip = fig.to_html()
         
