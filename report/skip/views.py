@@ -9,6 +9,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy
+from django.contrib.auth import authenticate
+
+
+from django.contrib import messages
 
 from django.http import HttpResponse
 # from django.contrib.auth import get_user_model
@@ -18,7 +22,6 @@ from django.db.models import Sum, Avg
 
 import pandas as pd 
 import plotly.express as px
-from plotly.offline import plot
 import datetime
 import calendar
 import locale
@@ -35,8 +38,32 @@ class LoginUser(LoginView):
     form_class = LogInForm
     template_name = 'login.html'
     
-    def get_success_url(self) -> str:
-        return reverse_lazy('main')
+    initial = {'key': 'value'}
+    
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request, *args, **kwargs):        
+        form = self.form_class()
+        if request.method == "POST":
+            # form = self.form_class(request.POST or None)
+            
+            user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+            if user is not None:
+                login(request, user)
+                # messages.success(request, 'Вы успешно зашли')
+                return redirect('main')
+            # login(request, user)
+            else:
+                messages.error(request, 'Неверный логин или пароль')
+            # else:
+            #     messages.error(request, 'Логин или пароль - Не верны')
+        
+        return render(request, self.template_name, {'form': form})
+    
+    # def get_success_url(self) -> str:
+    #     return reverse_lazy('main')
     
         
 class MainPage(LoginRequiredMixin, TemplateView):
@@ -318,7 +345,7 @@ class AdminRegistration(LoginRequiredMixin, TemplateView):
                 return redirect('/')
             
             else:
-                messages.error(request, 'При регистрации нового пользователя возникла ошибка')
+                messages.error(request, form.errors)
 
         else:
             form = self.form_registration()

@@ -20,7 +20,12 @@
           Электронный колледж
         </h1>
         <h1 class="welcome">Добро пожаловать!</h1>
-        <h2 class="input_data">Введите логин и пароль</h2>
+        <h2 class="input_data">Введите логин и пароль </h2>
+        {% if messages %}
+          {% for message in messages %}    
+            <h3>{{ message }}</h3>
+          {% endfor %}
+        {% endif %}
         <form method="POST"> 
           {% csrf_token %} 
           <div class="input_login">

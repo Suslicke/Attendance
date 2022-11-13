@@ -47,6 +47,14 @@
                     <img src="{% static 'image/Password.png' %}" class="password_IMAGE_again">
                     {{ form.password2 }}
                 </div>
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="password_incorrect">
+                    <h1 class="incorrectsa" id="">{{ message }}</h1>
+                </div>
+                {% endfor %}
+                {% endif %}
                 <div class="checkbox_admin">
                     <img src="{% static 'image/Admin_no.png' %}" class="admin_IMAGE">
                     {{ form.is_staff }}
