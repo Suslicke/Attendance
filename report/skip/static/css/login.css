@@ -1,6 +1,6 @@
 html,
 body {
-    background: url("image/background.png") center center no-repeat;
+    background: url("../image/background.png") center center no-repeat;
     background-attachment: fixed;
     background-size: 130%;
 }
@@ -239,13 +239,13 @@ button {
 
 @media screen and (max-width: 414px) {
     html {
-        background: url("image/phone-bg.png") center center no-repeat;
+        background: url('../image/phone-bg.png') center center no-repeat;
         background-attachment: fixed;
         background-size: 100%;
-    }
+      }
     body {
-        overflow: hidden;
-        margin: 0;
+      overflow: hidden;
+      margin: 0;
     }
     .box {
         width: 361px;

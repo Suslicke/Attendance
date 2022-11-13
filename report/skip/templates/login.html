@@ -9,24 +9,6 @@
   <meta name="viewport" content="width=device-width, shrink-to-fit=no" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
-  <style>
-    html,
-    body{
-      background: url('{% static 'image/background.png' %}') center center no-repeat;
-      background-attachment: fixed;
-      background-size: 130%;
-    }
-    @media screen and (max-width: 414px) {
-      html {
-          background: url('{% static 'image/phone-bg.png' %}') center center no-repeat;
-          background-attachment: fixed;
-          background-size: 100%;
-        }
-      body {
-        overflow: hidden;
-        margin: 0;
-      }
-  </style>
 {% endblock %} 
 <!-- style="background: url('{% static 'image/background.png' %}') center center no-repeat; background-attachment: fixed; background-size: 130%;" -->
 {% block content %}
