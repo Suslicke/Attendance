@@ -3,35 +3,56 @@
 {% block head %}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  <style>
+    html,
+    body{
+      background: url('{% static 'image/background.png' %}') center center no-repeat;
+      background-attachment: fixed;
+      background-size: 130%;
+    }
+    @media screen and (max-width: 414px) {
+      html {
+          background: url('{% static 'image/phone-bg.png' %}') center center no-repeat;
+          background-attachment: fixed;
+          background-size: 100%;
+        }
+      body {
+        overflow: hidden;
+        margin: 0;
+      }
+  </style>
 {% endblock %} 
-
+<!-- style="background: url('{% static 'image/background.png' %}') center center no-repeat; background-attachment: fixed; background-size: 130%;" -->
 {% block content %}
-<body>
-  <div class="container">
-    <h1 class="collage"> 
-      Электронный колледж
-    </h1>
-    <div class="box">
-      <h1 class="welcome">Добро пожаловать!</h1>
-      <h2 class="input_data">Введите логин и пароль</h2>
-      <form method="POST"> 
-        {% csrf_token %} 
-        <div class="input_login">
-          <img src="{% static 'image/Login.png' %}" class="login_IMAGE" alt="login">
-          {{ form.username }}
-            <!-- <input type="login" class="form-control" id="exampleInputlogin" aria-describedby="loginHelp" placeholder="Логин"> -->
-        </div>
-        <div class="input_password">
-          <img src="{% static 'image/Password.png' %}" class="password_IMAGE">
-          {{ form.password }}
-        </div>
-        <button type="submit" class="btn btn-primary">Войти</button>
-      </form>
-    </div>
-</body> 
+<html>
+  <body>
+    <div class="container">
+      <div class="box">
+        <h1 class="collage"> 
+          Электронный колледж
+        </h1>
+        <h1 class="welcome">Добро пожаловать!</h1>
+        <h2 class="input_data">Введите логин и пароль</h2>
+        <form method="POST"> 
+          {% csrf_token %} 
+          <div class="input_login">
+            <img src="{% static 'image/Login.png' %}" class="login_IMAGE" alt="login">
+            {{ form.username }}
+              <!-- <input type="login" class="form-control" id="exampleInputlogin" aria-describedby="loginHelp" placeholder="Логин"> -->
+          </div>
+          <div class="input_password">
+            <img src="{% static 'image/Password.png' %}" class="password_IMAGE">
+            {{ form.password }}
+          </div>
+          <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+      </div>
+  </body> 
+</html>
 {% endblock %}
