@@ -251,7 +251,7 @@ button {
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 500px) {
     html {
         background: url('../image/phone-bg.png') center center no-repeat;
         background-attachment: fixed;
@@ -307,7 +307,7 @@ button {
     }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 375px) and (max-width: 413px) {
     .box {
         width: 330px;
         height: 630px;

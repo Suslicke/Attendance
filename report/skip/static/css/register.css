@@ -454,7 +454,7 @@ button:hover {
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 500px) {
     body {
         width: 414px;
         height: 880px;
@@ -639,7 +639,7 @@ button:hover {
     }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 375px) and (max-width: 413px) {
     body {
         width: 375px;
         height: 667px;

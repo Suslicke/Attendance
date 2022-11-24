@@ -608,7 +608,7 @@ input[type="checkbox"] {
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 500px) {
     body {
         width: 380px;
         height: 850px;
@@ -789,7 +789,7 @@ input[type="checkbox"] {
     }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 375px) and (max-width: 413px) {
     body {
         width: 375px;
         margin-left: 13px;
