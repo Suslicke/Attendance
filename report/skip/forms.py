@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext, gettext_lazy as _
 
 from django.conf import settings
+import datetime
 
 
 
@@ -19,7 +20,8 @@ class TruancyForm(ModelForm):
             "date": DateInput(attrs={'type': 'date',
                                      'name': 'date',
                                      'class': 'date',
-                                     'id':'style_input'}),
+                                     'id':'style_input',
+                                     'value': datetime.datetime.today().strftime('%Y-%m-%d')}),
             "all_people": TextInput(attrs={'placeholder': 'Всего людей',
                                            'type': 'number',
                                            'class': 'all_people',
