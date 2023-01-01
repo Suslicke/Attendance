@@ -15,7 +15,6 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 
 from django.http import HttpResponse
-# from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
 from django.db.models import Sum, Avg
@@ -47,23 +46,15 @@ class LoginUser(LoginView):
     def post(self, request, *args, **kwargs):        
         form = self.form_class()
         if request.method == "POST":
-            # form = self.form_class(request.POST or None)
             
             user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
             if user is not None:
                 login(request, user)
-                # messages.success(request, 'Вы успешно зашли')
                 return redirect('main')
-            # login(request, user)
             else:
                 messages.error(request, 'Неверный логин или пароль')
-            # else:
-            #     messages.error(request, 'Логин или пароль - Не верны')
         
         return render(request, self.template_name, {'form': form})
-    
-    # def get_success_url(self) -> str:
-    #     return reverse_lazy('main')
     
         
 class MainPage(LoginRequiredMixin, TemplateView):
@@ -125,15 +116,9 @@ class Admin(LoginRequiredMixin, TemplateView):
                                         xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])],
                                         
                                         #   width=1000,
-                                        )
-                         #xaxis_range=[datetime.datetime.today().replace(day=1), datetime.datetime.today().replace(day=1) + datetime.timedelta(days=monthrange(datetime.datetime.now().year, datetime.datetime.now().month)[1])]
-                    
+                                        )                    
 
-                    chart = fig.to_html(full_html=False)
-
-                
-                    # date_form = self.form_date(initial=self.initial)
-                    
+                    chart = fig.to_html(full_html=False) 
                     return chart
                 
             def today_data(self, request, today_info, group, start, end):
@@ -277,9 +262,6 @@ class Admin(LoginRequiredMixin, TemplateView):
                     context_data.update(today_group)
                     return context_data
                     
-
-        
-        # data_list = Truancy.objects.values('date').annotate(absenteeism=Sum('absenteeism'), percent=Avg('percent'), num_hours=Sum('num_hours')).order_by('date')
         
         group_report = Truancy.objects.filter(date=datetime.date.today()).values_list('group', flat=True)
         
@@ -289,13 +271,11 @@ class Admin(LoginRequiredMixin, TemplateView):
         
         
         def get_group(self, request):
-            groups = Truancy.objects.order_by('group').distinct('group') #Truancy.objects.order_by('group').distinct('group')
+            groups = Truancy.objects.order_by('group').distinct('group')
             return groups
         
         form = self.form_dateFilter(initial=self.initial)
-        
-        # if datetime.date.today() in data_list.values_list('date', flat=True):
-            
+                    
         context_data = GeneratePage.do(self, request, group=group)
         groups = get_group(self, request)
         
@@ -315,11 +295,7 @@ class Admin(LoginRequiredMixin, TemplateView):
 
 
         return render(request, self.template_name, context)
-    # else:
-        #     return render(request, self.template_name, {'form': form})
-    
-        # render_page(self, request)
-        
+
         
 class AdminRegistration(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('login')
@@ -375,7 +351,6 @@ class AdminRegistration(LoginRequiredMixin, TemplateView):
     
 
 class Group(LoginRequiredMixin, TemplateView):
-    # http_method_names = ['get', 'post'] 
     login_url = reverse_lazy('login')
     template_name = 'group.html'
     
@@ -409,21 +384,14 @@ class Group(LoginRequiredMixin, TemplateView):
             chart_skip = fig.to_html()
         
             form = self.form_truancy(initial=self.initial)
-            # date_form = self.form_date(initial=self.initial)
             return render(request, self.template_name, {'form': form,
                                                         'chart': chart_skip}) 
         else:    
             form = self.form_truancy(initial=self.initial)
-            # date_form = self.form_date(initial=self.initial)
             return render(request, self.template_name, {'form': form})
             
     
-    def post(self, request, *args, **kwargs):        
-        # data = {
-        #     'form': form,
-        #     'error': error,
-        # }
-        
+    def post(self, request, *args, **kwargs):                
         if request.method == "POST":
             form = self.form_truancy(request.POST or None)
             
@@ -436,10 +404,6 @@ class Group(LoginRequiredMixin, TemplateView):
                 truancy.percent = float(float(form.data.get('absenteeism')) / (float(form.data.get('all_people'))) * 100)
 
                 truancy.save()
-                # print(post)
-                
-                # print(form.data)
-                
                 return redirect('/')
 
             else:
@@ -484,9 +448,7 @@ class ExportExcel(LoginRequiredMixin, TemplateView):
                 ws.write(row_num, col_num, columns_list[col_num], font_style)
 
             font_style = xlwt.XFStyle()
-            # rows = Truancy.objects.filter().values_list('date')
-            groups = User.objects.filter(is_staff=False) #Truancy.objects.order_by('group').distinct('group') rows = Truancy.objects.filter().values_list('group')
-            # .filter(date__gte=f'{datetime.datetime.strptime(str(datetime.datetime.today().year) + {num_month} + "01", "%Y%m%d")}').filter(date__lte=f'{datetime.datetime.strptime(str(datetime.datetime.today().year) + {num_month} + calendar.monthrange(datetime.datetime.today().year, {num_month}), "%Y%m%d")}')            
+            groups = User.objects.filter(is_staff=False)
             for row in range(len(groups)):
                 row_num += 1
                 

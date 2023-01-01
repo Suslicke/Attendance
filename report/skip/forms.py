@@ -16,7 +16,6 @@ class TruancyForm(ModelForm):
         fields = ['date', 'all_people', 'absenteeism', 'num_pairs']
         
         widgets = {
-            # "Group": TextInput(attrs={'placeholder': 'Группа'}),
             "date": DateInput(attrs={'type': 'date',
                                      'name': 'date',
                                      'class': 'date',

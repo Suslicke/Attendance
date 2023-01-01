@@ -6,12 +6,6 @@ from django.utils import timezone
 tz = timezone.get_default_timezone()
 
 
-
-# Create your models here.
-# class CustomUser(AbstractUser):
-#     pass
-#settings.AUTH_USER_MODEL
-
 class Truancy(models.Model):
     key = models.AutoField(primary_key=True)
     group = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
